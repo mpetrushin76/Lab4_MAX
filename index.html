@@ -1,0 +1,218 @@
+<head>
+    <link href="css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- jQuery UI -->
+    <link href="https://code.jquery.com/ui/1.10.3/themes/redmond/jquery-ui.css" rel="stylesheet" media="screen">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+       
+
+    
+    
+   
+   
+
+</head>
+<style>
+    body {
+        background-color: #eee;
+    }
+
+    *[role="form"] {
+        max-width: 530px;
+        padding: 15px;
+        margin: 0 auto;
+        background-color: #fff;
+        border-radius: 0.3em;
+    }
+
+    *[role="form"] h2 {
+        margin-left: 5em;
+        margin-bottom: 1em;
+    }
+</style>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>
+    <div class="container">
+        <form class="form-horizontal" id="myForm">
+            <h2>Отправка заявки</h2>
+            <div class="form-group">
+                <label for="firstName" class="col-sm-3 control-label">Фамилия Имя</label>
+                <div class="col-sm-9">
+                    <input type="text" name="firs_name" id="firstName" placeholder="Full Name" class="form-control" autofocus>
+                    <span class="help-block">Например: Иван Иванов</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                    <input type="email" name="email" id="email" placeholder="Email" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Комментарий</label>
+                <div class="col-sm-9">
+                    <input type="text" name="detail" id="detail" placeholder="Detail request" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="birthDate" class="col-sm-3 control-label">Дата рождения</label>
+                <div class="col-sm-9">
+                    <input type="date" name="date" id="birthDate" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-sm-3 control-label">Страна</label>
+                <div class="col-sm-9">
+                    <select id="country" class="form-control" name="place">
+                        <option>Россия</option>
+                        <option>Казахстан</option>
+                        <option>Украина</option>
+                        <option>Белоруссия</option>
+                        <option>Германия</option>
+                        <option>Франция</option>
+                        <option>Америка</option>
+                        <option>Китай</option>
+                    </select>
+                </div>
+            </div>
+            <!-- /.form-group -->
+            <div class="form-group">
+                <label class="control-label col-sm-3">Пол</label>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="femaleRadio" value="Ж">Жен.
+                            </label>
+                            <label class="radio-inline">
+                                    <input type="radio" name="gender" id="maleRadio" value="М">Муж.
+                                </label>
+                        </div>
+                      
+                    </div>
+                </div>
+            </div>
+
+            <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="accept">Я принимаю
+                            <a href="#">условия</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary btn-block">Отправить заявку</button>
+                   <!-- <button class="btn btn-primary btn-block" onclick="login()">login</button>-->
+                </div>
+            </div> 
+        </form>
+        
+        <!-- /form -->
+    </div>
+    <!-- ./container -->
+        <!-- Firebase App is always required and must be first -->
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-app.js"></script>
+
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.12.1/firebase-functions.js"></script>
+       
+    <script>
+        
+         var config = {
+            apiKey: "AIzaSyCsRyo3gkeYFM3JDI5MWlaIupVG3udP_nU",
+            authDomain: "laba4-d5673.firebaseapp.com",
+            databaseURL: "https://laba4-d5673.firebaseio.com",
+            projectId: "laba4-d5673",
+            storageBucket: "laba4-d5673.appspot.com",
+            messagingSenderId: "67085345827"
+        };
+
+        firebase.initializeApp(config);
+        var globalUser = JSON.parse(localStorage.getItem('user'));
+        var globalToken = localStorage.getItem('token');
+
+        if (globalUser && globalToken) {
+            $('#profileselector').text(globalUser.displayName);
+        } else {
+            alert('вы можете работать как анонимный пользователь!');
+        }
+
+        console.log(globalToken);
+        console.log(globalUser);
+
+        function login() {
+            console.log('sign in ...');
+            var provider = new firebase.auth.GoogleAuthProvider();
+            provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+            //firebase.auth().signInWithRedirect(provider);
+            firebase.auth().signInWithPopup(provider).then(function (result) {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                var token = result.credential.accessToken;
+                // The signed-in user info.
+                var user = result.user;
+
+                $('#profileselector').text(user.displayName);
+
+                localStorage.setItem('user', JSON.stringify(user));
+                localStorage.setItem('token', token);
+
+                console.log('token ' + token);
+                window.location.href = 'index.html';
+
+            }).catch(function (error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // The email of the user's account used.
+                var email = error.email;
+                // The firebase.auth.AuthCredential type that was used.
+                var credential = error.credential;
+            });
+        }
+
+
+        $("#myForm").submit(function (e) {
+
+            //prevent Default functionality
+            e.preventDefault();
+
+            var $form = $("#myForm");
+            var data = getFormData($form);
+            console.log(data);
+
+            var db = firebase.firestore();
+            db.collection("requests").add(data)
+                .then(function (docRef) {
+                    console.log("Document written with ID: ", docRef.id);
+                    alert('Заявка была отправлена!');
+                })
+                .catch(function (error) {
+                    console.error("Error adding document: ", error);
+                });
+        });
+
+
+        function getFormData($form) {
+            var unindexed_array = $form.serializeArray();
+            var indexed_array = {};
+            $.map(unindexed_array, function (n, i) {
+                indexed_array[n['name']] = n['value'];
+            });
+            return indexed_array;
+        }
+
+    </script>
+</body>
